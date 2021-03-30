@@ -19,9 +19,9 @@ The data to be monitored are provided by a Filippetti Device Simulator.
 
 The repository has the following file:
 
-* *Confluent Platform installation
-* *Configuration and usage
-* *README.md
+* *Confluent Platform installation*
+* *Configuration and usage*
+* *README.md*
 
 ## Authors
 
