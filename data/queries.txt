@@ -1,0 +1,59 @@
+[BASE]
+CREATE STREAM base_stream (ref varchar KEY, type varchar, m array<struct<k varchar, v double>>)
+WITH (kafka_topic='mqtt', value_format='JSON_SR');
+
+CREATE STREAM exploded_base AS
+SELECT ref, type, EXPLODE(m)->k AS name, EXPLODE(m)->v AS value
+FROM base_stream
+EMIT CHANGES;
+
+[QUESTION A]
+CREATE TABLE questiona WITH (value_format='JSON') AS
+SELECT 1, TIMESTAMPTOSTRING(WINDOWSTART,'yyyy-MM-dd HH:mm:ss','Europe/London') AS start_ts, count(*) AS count
+FROM exploded_base WINDOW TUMBLING (SIZE 60 SECONDS)
+GROUP BY 1
+EMIT CHANGES;
+
+[QUESTION B]
+CREATE TABLE questionb WITH (value_format='JSON') AS
+SELECT type, TIMESTAMPTOSTRING(WINDOWSTART,'yyyy-MM-dd HH:mm:ss','Europe/London') AS start_ts, count(*) AS count
+FROM exploded_base WINDOW TUMBLING (SIZE 60 SECONDS)
+GROUP BY type
+EMIT CHANGES;
+
+[QUESTION C]
+CREATE TABLE questionc WITH (value_format='JSON') AS
+SELECT ref, TIMESTAMPTOSTRING(WINDOWSTART,'yyyy-MM-dd HH:mm:ss','Europe/London') AS start_ts, count(*) AS count
+FROM exploded_base WINDOW TUMBLING (SIZE 60 SECONDS)
+GROUP BY ref
+EMIT CHANGES;
+
+[QUESTION D]
+CREATE TABLE questiond WITH (value_format='JSON') AS
+SELECT ref, name, MIN(value) AS min, MAX(value) AS max, AVG(value) AS average
+FROM exploded_base WINDOW TUMBLING (SIZE 5 MINUTES)
+WHERE value > 0
+GROUP BY ref, name
+EMIT CHANGES;
+
+[QUESTION E]
+CREATE STREAM questione WITH (value_format='JSON') AS
+SELECT ref, name, value
+FROM exploded_base
+WHERE name='device_temperature' AND value > 35;
+
+[QUESTION F]
+CREATE STREAM questionf WITH (value_format='JSON') AS
+SELECT ref, name, value, count(*) AS count
+FROM exploded_base
+WHERE name='device_temperature' AND value > 35
+HAVING count(*) > 5;
+
+[QUESTION G]
+CREATE TABLE questiong WITH (value_format='JSON') AS
+SELECT ref, avg(value) AS average
+FROM exploded_base WINDOW TUMBLING (SIZE 60 SECONDS)
+WHERE name='device_temperature'
+GROUP BY ref
+HAVING (count(*) > 2 AND avg(value) > 25)
+EMIT CHANGES;
