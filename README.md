@@ -31,9 +31,9 @@ If there are problems with JavaFX you can see a possible solution on this post h
   confluent local services start
   ```
 * Navigate to the Control Center web interface at http://localhost:9021/ and select your cluster
-<br><br>
-<img src="images/confluent-clusters.png" width="400" height="500">
-<br><br>
+  <br><br>
+  <img src="images/confluent-clusters.png" width="400" height="500">
+  <br><br>
 * Create the topics you need
 * Add source connector
 * Add sink connector (if you need it)
