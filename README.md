@@ -10,6 +10,8 @@ The data to be monitored are provided by a Filippetti Device Simulator.
 
 * **Ubuntu 18.04 64 bit**
 * **Java 8**
+
+## Installation
 * **JavaFX**
 * [MQTT broker](https://github.com/eclipse/paho.mqtt-spy/wiki/Downloads)
 * [Mosquitto](https://mosquitto.org/download/)
