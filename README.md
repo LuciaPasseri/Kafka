@@ -31,7 +31,7 @@ If there are problems with JavaFX you can see a possible solution on this post h
   ```
 * Navigate to the Control Center web interface at http://localhost:9021/ and select your cluster
   <br><br>
-  <img src="images/confluent-clusters.png" width="400" height="400">
+  <img src="images/confluent-clusters.png" width="400" height="500">
   <br><br>
 * Create the topics you need
 * Install source and sink connectors you need with the command
@@ -40,7 +40,7 @@ If there are problems with JavaFX you can see a possible solution on this post h
   ```
 * Add source and sink connector
   <br><br>
-  <img src="images/confluent-connectors.png" width="350" height="300">
+  <img src="images/confluent-connectors.png" width="400" height="500">
   <br><br>
 * Create and Write to a Stream and Table using KSQL
 
