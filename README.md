@@ -42,7 +42,7 @@ If there are problems with JavaFX you can see a possible solution on this post h
   ```
 * Add source and sink connector
   <br><br>
-  <img src="images/confluent-connectors.png" width="400" height="500">
+  <img src="images/confluent-connectors.png" width="800" height="450">
   <br><br>
 * Create and Write to a Stream and Table using KSQL
 
