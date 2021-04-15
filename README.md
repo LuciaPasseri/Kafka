@@ -19,24 +19,29 @@ The data to be monitored are provided by a Filippetti Device Simulator.
 If there are problems with JavaFX you can see a possible solution on this post https://stackoverflow.com/questions/56166267/how-do-i-get-java-fx-running-with-openjdk-8-on-ubuntu-18-04-2-lts.
 
 ## Usage
-* Add mosquitto to running services
+* Download and activate Mosquitto to running services
 * Start mqtt data simulator
   ```bash
   java -jar simulator.jar safe_Simulator.json
   ```
   (make sure that you are in the simulator folder)
-
 * Launch Confluent from any directory with the underneath command:
   ```bash
   confluent local services start
   ```
 * Navigate to the Control Center web interface at http://localhost:9021/ and select your cluster
   <br><br>
-  <img src="images/confluent-clusters.png" width="400" height="500">
+  <img src="images/confluent-clusters.png" width="400" height="400">
   <br><br>
 * Create the topics you need
-* Add source connector
-* Add sink connector (if you need it)
+* Install source and sink connectors you need with the command
+  ```bash
+  confluent-hub install confluentinc/kafka-connect-mqtt:latest
+  ```
+* Add source and sink connector
+  <br><br>
+  <img src="images/confluent-connectors.png" width="350" height="300">
+  <br><br>
 * Create and Write to a Stream and Table using KSQL
 
 ## Authors
